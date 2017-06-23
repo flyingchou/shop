@@ -1,0 +1,64 @@
+<style type="text/css">
+		.nav_mid .nav_mid_left ul li .slide ol{
+			margin-top:10px;
+		
+		}
+	
+		.nav_mid .nav_mid_left ul li .slide ol li a{
+		
+			width:100px;
+			display:inline-block;
+			color:#3B3B3B;
+			border-left:none;
+			width:80px;
+			 font-family: "microsoft Yahei";
+			 font-size:12px;
+			 height: 25px;
+			 line-height:25px;
+		}
+		.nav_mid_left ul li .nav-img img{
+		
+			margin-top:10px;
+		
+		
+		}
+		.nav_mid .nav_mid_left ul li .slide ol li a:hover{
+		
+			background-color:#fff;
+			color:#A6A19C;
+			font-weight: bold;
+		
+		}
+		
+		.nav_mid_left div.slide{
+			position:absolute;
+			left:120px;
+			top:37px;
+			height:120px;
+			width:500px;
+			z-index:999;
+			overflow:auto;
+			background-color:#fff;
+			display:none;
+		}
+		
+		.nav_mid_left li ol li{
+		
+			   display: block;
+   				 float: left;
+ 				   overflow: hidden;
+   				 text-align: left;
+  			  text-indent: 4;
+ 			   width: 260px;
+ 			    border-bottom: 1px dashed #cccccc;
+ 			    margin-left:15px;
+ 			    height:25px;
+ 			    vertical-align: bottom;
+ 			    
+		
+		
+		}
+		
+		
+	
+	</style>

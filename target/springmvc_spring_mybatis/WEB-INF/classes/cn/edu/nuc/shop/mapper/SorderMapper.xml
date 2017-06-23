@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nuc.shop.dao.SorderMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.nuc.shop.entiry.Sorder">
+    <id column="sid" jdbcType="INTEGER" property="sid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="fid" jdbcType="INTEGER" property="fid" />
+    
+  </resultMap>
+  <sql id="Base_Column_List">
+    sid, name, price, number, fid, pid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zk_sorder
+    where sid = #{sid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="listSorderByfid" parameterType="java.lang.Integer" resultType="cn.edu.nuc.shop.entiry.Sorder">
+    select 
+    <include refid="Base_Column_List" />
+    from zk_sorder
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zk_sorder
+    where sid = #{sid,jdbcType=INTEGER}
+  </delete>
+  
+   <delete id="deleteByFid" parameterType="java.lang.Integer">
+	    delete from zk_sorder
+	    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="cn.edu.nuc.shop.entiry.Sorder">
+    insert into zk_sorder (name, price, 
+      number, fid, pid)
+    values 
+	  (#{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
+      #{number,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}, 
+      #{pid,jdbcType=INTEGER})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="cn.edu.nuc.shop.entiry.Sorder">
+    insert into zk_sorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.nuc.shop.entiry.Sorder">
+    update zk_sorder
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.nuc.shop.entiry.Sorder">
+    update zk_sorder
+    set name = #{name,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      number = #{number,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER}
+    where sid = #{sid,jdbcType=INTEGER}
+  </update>
+</mapper>

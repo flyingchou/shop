@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.nuc.shop.dao.ProductMapper">
+  <resultMap id="ProductResultMap" type="cn.edu.nuc.shop.entiry.Product">
+    <id column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="sprice" jdbcType="DECIMAL" property="sprice" />
+    <result column="cprice" jdbcType="DECIMAL" property="cprice" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="pdesc" jdbcType="VARCHAR" property="pdesc" />
+    <result column="is_hot" jdbcType="TINYINT" property="isHot" />
+    <result column="pdate" jdbcType="TIMESTAMP" property="pdate" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    pid, pname, sprice, cprice, pic, pdesc, is_hot, pdate,number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="cn.edu.nuc.shop.entiry.Product">
+    select 
+    <include refid="Base_Column_List" />
+    from zk_product
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+
+  <!--<select id="selectallList" parameterType="cn.edu.nuc.shop.entiry.Product"-->
+          <!--resultMap="cn.edu.nuc.shop.entiry.Product">-->
+    <!--select pid, pname, sprice,cprice,pic,pdesc,isHot,pdate,number-->
+    <!--from zk_product-->
+  <!--</select>-->
+   <select id="listProduct"  resultMap="ProductResultMap">
+	    select
+	   		 <include refid="Base_Column_List" />
+	    from zk_product
+  </select>
+  
+  <select id="findByPname" resultType="cn.edu.nuc.shop.entiry.Product">
+  		select
+  			<include refid="Base_Column_List"/>
+  		from zk_product	
+  		where pname like CONCAT(CONCAT('%', #{value}), '%')
+  </select>
+  
+  <select id="frontlistNew" resultType="cn.edu.nuc.shop.entiry.Product">
+  		select
+  			<include refid="Base_Column_List"/>
+  		from zk_product
+  		order by pdate desc limit 0,10
+  </select>
+  <select id="frontlistHot" resultType="cn.edu.nuc.shop.entiry.Product">
+  		select
+  			<include refid="Base_Column_List"/>
+  		from zk_product
+  		where is_hot=1
+  		limit 0,5
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from zk_product
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.nuc.shop.entiry.Product">
+    insert into zk_product (pid, pname, sprice, 
+      cprice, pic, pdesc, 
+      is_hot, pdate,number)
+    values (#{pid,jdbcType=INTEGER}, #{pname,jdbcType=VARCHAR}, #{sprice,jdbcType=DECIMAL}, 
+      #{cprice,jdbcType=DECIMAL}, #{pic,jdbcType=VARCHAR}, #{pdesc,jdbcType=VARCHAR}, 
+      #{isHot,jdbcType=TINYINT}, now(), #{number,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.nuc.shop.entiry.Product">
+    insert into zk_product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="pname != null">
+        pname,
+      </if>
+      <if test="sprice != null">
+        sprice,
+      </if>
+      <if test="cprice != null">
+        cprice,
+      </if>
+      <if test="pic != null">
+        pic,
+      </if>
+      <if test="pdesc != null">
+        pdesc,
+      </if>
+      <if test="isHot != null">
+        is_hot,
+      </if>
+      <if test="pdate != null">
+        pdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null">
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="sprice != null">
+        #{sprice,jdbcType=DECIMAL},
+      </if>
+      <if test="cprice != null">
+        #{cprice,jdbcType=DECIMAL},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="pdesc != null">
+        #{pdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=TINYINT},
+      </if>
+      <if test="pdate != null">
+        #{pdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.nuc.shop.entiry.Product">
+    update zk_product
+    <set>
+      <if test="pname != null">
+        pname = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="sprice != null">
+        sprice = #{sprice,jdbcType=DECIMAL},
+      </if>
+      <if test="cprice != null">
+        cprice = #{cprice,jdbcType=DECIMAL},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="pdesc != null">
+        pdesc = #{pdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null">
+        is_hot = #{isHot,jdbcType=TINYINT},
+      </if>
+      <if test="pdate != null">
+        pdate = #{pdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.nuc.shop.entiry.Product">
+    update zk_product
+    set pname = #{pname,jdbcType=VARCHAR},
+      sprice = #{sprice,jdbcType=DECIMAL},
+      cprice = #{cprice,jdbcType=DECIMAL},
+      pic = #{pic,jdbcType=VARCHAR},
+      pdesc = #{pdesc,jdbcType=VARCHAR},
+      is_hot = #{isHot,jdbcType=TINYINT},
+      number = #{number,jdbcType=INTEGER}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="subProductNumber" parameterType="java.util.Set">
+      <foreach collection="list" item="item" index="index" separator=";">  
+	    UPDATE ignore zk_product 
+	    set number = number-#{item.number} 
+	    WHERE pid = #{item.pid}  and number >=#{item.number}
+    </foreach>  
+  </update>
+ 
+</mapper>
